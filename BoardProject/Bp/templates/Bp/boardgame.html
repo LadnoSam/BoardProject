@@ -1,0 +1,19 @@
+{% extends 'Bp/base.html' %}
+
+{% block content %}
+  <h2>{{ Boardgame.title }}</h2>
+
+  <p>Descriptions:</p>
+  <ul>
+      {% for description in descriptions %}
+        <li>
+          <p>{{ description.date_added|date:'M d, Y H:i' }}</p>
+          <p>{{ description.description|linebreaks }}</p>
+        </li>
+      {% empty %}
+        <li>There are no descriptions for this game yet.</li>
+      {% endfor %}
+  </ul>
+
+  <a href="{% url 'Bp:new_description' Boardgame.id %}">Add a new description</a>
+{% endblock content %}

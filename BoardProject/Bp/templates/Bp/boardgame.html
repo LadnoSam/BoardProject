@@ -1,0 +1,17 @@
+{% extends 'Bp/base.html' %}
+
+{% block content %}
+  <h2>{{ Boardgame.title }}</h2>
+  <p>{{ Boardgame.description }}</p>
+  <p>Available Copies: {{ Boardgame.available_copies }}</p>
+
+  {% if Boardgame.is_available %}
+    <form action="{% url 'Bp:borrow_game' Boardgame.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Borrow this game</button>
+    </form>
+  {% else %}
+    <p>This game is currently unavailable.</p>
+  {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends 'Bp/base.html' %}
+
+{% block content %}
+  <h2>Add a new description for {{ boardgame.title }}</h2>
+
+  <form action="{% url 'Bp:new_description' boardgame.id %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add Description</button>
+  </form>
+
+  <a href="{% url 'Bp:boardgame' boardgame.id %}">Back to {{ boardgame.title }}</a>
+{% endblock content %}

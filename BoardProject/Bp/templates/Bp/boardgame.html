@@ -1,0 +1,43 @@
+{% extends 'Bp/base.html' %}
+
+{% block content %}
+  <h2>{{ Boardgame.title }}</h2>
+
+  <p>Descriptions:</p>
+  <ul>
+      {% for description in descriptions %}
+        <li>
+          <p>{{ description.date_added|date:'M d, Y H:i' }}</p>
+          <p>{{ description.description|linebreaks }}</p>
+        </li>
+      {% empty %}
+        <li>There are no descriptions for this game yet.</li>
+      {% endfor %}
+  </ul>
+
+  <a href="{% url 'Bp:new_description' Boardgame.id %}">Add a new description</a>
+
+  <p>Available Copies: {{ Boardgame.available_copies }}</p>
+  {% if Boardgame.available_copies > 0 %}
+    <!-- Borrow Button -->
+    <form action="{% url 'Bp:borrow_game' Boardgame.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Borrow this game</button>
+    </form>
+{% else %}
+    <p>This game is currently unavailable.</p>
+{% endif %}
+
+<!-- Show Return Button if a Loan Exists -->
+{% for loan in Boardgame.loans.all %}
+    {% if not loan.returned %}
+        <form action="{% url 'Bp:return_game' loan.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Return this game</button>
+        </form>
+    {% endif %}
+{% empty %}
+    <p>No active loans for this game.</p>
+{% endfor %}
+
+{% endblock content %}

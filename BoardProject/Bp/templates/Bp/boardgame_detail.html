@@ -1,0 +1,20 @@
+<!-- boardgame_detail.html -->
+{% extends 'Bp/base.html' %}
+
+{% block content %}
+  <h1>{{ boardgame.title }}</h1>
+  <p>{{ boardgame.description }}</p>
+  <p>Total Copies: {{ boardgame.total_copies }}</p>
+  <p>Available Copies: {{ boardgame.available_copies }}</p>
+
+  <!-- Borrow Game Button -->
+  {% if boardgame.available_copies > 0 %}
+    <a href="{% url 'Bp:borrow_game' boardgame.id %}" class="btn btn-primary">Borrow this game</a>
+  {% else %}
+    <button class="btn btn-secondary" disabled>No copies available</button>
+  {% endif %}
+
+  <!-- Return Game Button -->
+  <a href="{% url 'Bp:return_game' boardgame.id %}" class="btn btn-success">Return this game</a>
+
+{% endblock %}

@@ -9,6 +9,11 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+# Redirect after successful login
+LOGIN_REDIRECT_URL = '/'
+# settings.py
+LOGOUT_REDIRECT_URL = 'login'  # Redirect to login page after logout
+
 
 from pathlib import Path
 
@@ -28,8 +33,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
